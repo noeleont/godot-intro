@@ -6,43 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://b1bn0e32nyocg" path="res://scenes/coin.tscn" id="4_6t1y8"]
 [ext_resource type="PackedScene" uid="uid://ddjag73xxria5" path="res://scenes/killzone.tscn" id="5_ruqdf"]
 
-[sub_resource type="Animation" id="Animation_4ua5y"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(308, 39)]
-}
-
-[sub_resource type="Animation" id="Animation_wxupu"]
-resource_name = "move"
-loop_mode = 2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(308, 39), Vector2(379, 39)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_32rvu"]
-_data = {
-"RESET": SubResource("Animation_4ua5y"),
-"move": SubResource("Animation_wxupu")
-}
-
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yy5l2"]
 texture = ExtResource("2_sen1q")
 0:0/0 = 0
@@ -208,6 +171,43 @@ sources/0 = SubResource("TileSetAtlasSource_yy5l2")
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ujsvu"]
 
+[sub_resource type="Animation" id="Animation_4ua5y"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(308, 39)]
+}
+
+[sub_resource type="Animation" id="Animation_wxupu"]
+resource_name = "move"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(308, 39), Vector2(379, 39)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_32rvu"]
+_data = {
+"RESET": SubResource("Animation_4ua5y"),
+"move": SubResource("Animation_wxupu")
+}
+
 [node name="Game" type="Node2D"]
 
 [node name="player" parent="." instance=ExtResource("1_c37h0")]
@@ -218,31 +218,35 @@ limit_bottom = 120
 limit_smoothed = true
 position_smoothing_enabled = true
 
-[node name="Platform" parent="." instance=ExtResource("2_25eqm")]
-position = Vector2(80, 13)
-
-[node name="Platform2" parent="." instance=ExtResource("2_25eqm")]
-position = Vector2(308, 39)
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Platform2"]
-libraries = {
-"": SubResource("AnimationLibrary_32rvu")
-}
-autoplay = "move"
-
 [node name="WorldTiles" type="TileMapLayer" parent="."]
 use_parent_material = true
 tile_map_data = PackedByteArray("AAD//wEAAAAAAAAAAAAAAAEAAAAAAAAAAAABAAAAAAAAAAAAAAACAAAAAAAAAAAAAAADAAIAAAAHAAAAAAAEAAIAAAAHAAAAAAAFAAIAAAAHAAAAAAAGAAIAAAAHAAAAAAAHAAIAAAAHAAAAAAALAAIAAAAHAAAAAAAMAAIAAAAHAAAAAAANAAIAAAAHAAAAAAAOAAIAAAAHAAAAAAAIAAIAAAAJAAAAAAAJAAIAAAAKAAAAAAAKAAIAAAALAAAAAAAQAAIAAAAGAAAAAAARAAIAAAAGAAAAAAABAAEAAAAAAAEAAAABAAIAAAAAAAEAAAACAAIAAAAAAAEAAAACAAEAAAAAAAEAAAD//wIAAAAAAAEAAAAAAAIAAAAAAAEAAAD//wMAAAAAAAEAAAAAAAMAAAABAAEAAAA=")
 tile_set = SubResource("TileSet_g4d48")
-
-[node name="Coin" parent="." instance=ExtResource("4_6t1y8")]
-position = Vector2(115, 19)
-
-[node name="Coin2" parent="." instance=ExtResource("4_6t1y8")]
-position = Vector2(301, 23)
 
 [node name="Killzone" parent="." instance=ExtResource("5_ruqdf")]
 position = Vector2(0, 127)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
 shape = SubResource("WorldBoundaryShape2D_ujsvu")
+
+[node name="Coins" type="Node" parent="."]
+
+[node name="Coin" parent="Coins" instance=ExtResource("4_6t1y8")]
+position = Vector2(115, 19)
+
+[node name="Coin2" parent="Coins" instance=ExtResource("4_6t1y8")]
+position = Vector2(301, 23)
+
+[node name="Platforms" type="Node" parent="."]
+
+[node name="Platform" parent="Platforms" instance=ExtResource("2_25eqm")]
+position = Vector2(80, 13)
+
+[node name="Platform2" parent="Platforms" instance=ExtResource("2_25eqm")]
+position = Vector2(308, 39)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Platforms/Platform2"]
+libraries = {
+"": SubResource("AnimationLibrary_32rvu")
+}
+autoplay = "move"
