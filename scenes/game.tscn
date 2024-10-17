@@ -1,8 +1,45 @@
-[gd_scene load_steps=9 format=3 uid="uid://cj6rur5220xdv"]
+[gd_scene load_steps=9 format=4 uid="uid://cj6rur5220xdv"]
 
 [ext_resource type="PackedScene" uid="uid://qfheh7b0v0pm" path="res://scenes/player.tscn" id="1_c37h0"]
 [ext_resource type="PackedScene" uid="uid://ydymvqy14cjx" path="res://scenes/platform.tscn" id="2_25eqm"]
 [ext_resource type="Texture2D" uid="uid://b0lx3oqin7gqo" path="res://assets/sprites/world_tileset.png" id="2_sen1q"]
+
+[sub_resource type="Animation" id="Animation_wxupu"]
+resource_name = "move"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(308, 39), Vector2(379, 39)]
+}
+
+[sub_resource type="Animation" id="Animation_4ua5y"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(308, 39)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_32rvu"]
+_data = {
+"RESET": SubResource("Animation_4ua5y"),
+"move": SubResource("Animation_wxupu")
+}
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yy5l2"]
 texture = ExtResource("2_sen1q")
@@ -167,43 +204,6 @@ texture = ExtResource("2_sen1q")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_yy5l2")
 
-[sub_resource type="Animation" id="Animation_wxupu"]
-resource_name = "move"
-loop_mode = 2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(308, 39), Vector2(379, 39)]
-}
-
-[sub_resource type="Animation" id="Animation_4ua5y"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(308, 39)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_32rvu"]
-_data = {
-"RESET": SubResource("Animation_4ua5y"),
-"move": SubResource("Animation_wxupu")
-}
-
 [node name="Game" type="Node2D"]
 
 [node name="player" parent="." instance=ExtResource("1_c37h0")]
@@ -211,11 +211,6 @@ _data = {
 [node name="Camera2D" type="Camera2D" parent="player"]
 zoom = Vector2(4, 4)
 position_smoothing_enabled = true
-
-[node name="TileMap" type="TileMap" parent="."]
-tile_set = SubResource("TileSet_g4d48")
-format = 2
-layer_0/tile_data = PackedInt32Array(131071, 0, 0, 65536, 0, 0, 1, 0, 0, 2, 0, 0, 131075, 458752, 0, 131076, 458752, 0, 131077, 458752, 0, 131078, 458752, 0, 131079, 458752, 0, 131083, 458752, 0, 131084, 458752, 0, 131085, 458752, 0, 131086, 458752, 0, 131080, 589824, 0, 131081, 655360, 0, 131082, 720896, 0, 131088, 393216, 0, 131089, 393216, 0, 65537, 0, 1, 131073, 0, 1, 131074, 0, 1, 65538, 0, 1, 196607, 0, 1, 131072, 0, 1, 262143, 0, 1, 196608, 65536, 1)
 
 [node name="Platform" parent="." instance=ExtResource("2_25eqm")]
 position = Vector2(80, 13)
@@ -228,3 +223,8 @@ libraries = {
 "": SubResource("AnimationLibrary_32rvu")
 }
 autoplay = "move"
+
+[node name="WorldTiles" type="TileMapLayer" parent="."]
+use_parent_material = true
+tile_map_data = PackedByteArray("AAD//wEAAAAAAAAAAAAAAAEAAAAAAAAAAAABAAAAAAAAAAAAAAACAAAAAAAAAAAAAAADAAIAAAAHAAAAAAAEAAIAAAAHAAAAAAAFAAIAAAAHAAAAAAAGAAIAAAAHAAAAAAAHAAIAAAAHAAAAAAALAAIAAAAHAAAAAAAMAAIAAAAHAAAAAAANAAIAAAAHAAAAAAAOAAIAAAAHAAAAAAAIAAIAAAAJAAAAAAAJAAIAAAAKAAAAAAAKAAIAAAALAAAAAAAQAAIAAAAGAAAAAAARAAIAAAAGAAAAAAABAAEAAAAAAAEAAAABAAIAAAAAAAEAAAACAAIAAAAAAAEAAAACAAEAAAAAAAEAAAD//wIAAAAAAAEAAAAAAAIAAAAAAAEAAAD//wMAAAAAAAEAAAAAAAMAAAABAAEAAAA=")
+tile_set = SubResource("TileSet_g4d48")
