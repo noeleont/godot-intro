@@ -1,7 +1,8 @@
-[gd_scene load_steps=14 format=4 uid="uid://cj6rur5220xdv"]
+[gd_scene load_steps=15 format=4 uid="uid://cj6rur5220xdv"]
 
 [ext_resource type="PackedScene" uid="uid://qfheh7b0v0pm" path="res://scenes/player.tscn" id="1_c37h0"]
 [ext_resource type="PackedScene" uid="uid://ydymvqy14cjx" path="res://scenes/platform.tscn" id="2_25eqm"]
+[ext_resource type="PackedScene" uid="uid://c2ijfch1ek5v2" path="res://scenes/enemy.tscn" id="2_lcjpk"]
 [ext_resource type="Texture2D" uid="uid://b0lx3oqin7gqo" path="res://assets/sprites/world_tileset.png" id="2_sen1q"]
 [ext_resource type="PackedScene" uid="uid://b1bn0e32nyocg" path="res://scenes/coin.tscn" id="4_6t1y8"]
 [ext_resource type="PackedScene" uid="uid://ddjag73xxria5" path="res://scenes/killzone.tscn" id="5_ruqdf"]
@@ -293,5 +294,8 @@ tile_set = SubResource("TileSet_46i2l")
 
 [node name="Mid" type="TileMapLayer" parent="."]
 use_parent_material = true
-tile_map_data = PackedByteArray("AAD//wEAAAAAAAAAAAAAAAEAAAAAAAAAAAABAAAAAAAAAAAAAAACAAAAAAAAAAAAAAADAAIAAAAHAAAAAAAEAAIAAAAHAAAAAAAFAAIAAAAHAAAAAAAGAAIAAAAHAAAAAAAHAAIAAAAHAAAAAAALAAIAAAAHAAAAAAAMAAIAAAAHAAAAAAANAAIAAAAHAAAAAAAOAAIAAAAHAAAAAAAIAAIAAAAJAAAAAAAJAAIAAAAKAAAAAAAKAAIAAAALAAAAAAAQAAIAAAAGAAAAAAARAAIAAAAGAAAAAAABAAEAAAAAAAEAAAABAAIAAAAAAAEAAAACAAIAAAAAAAEAAAACAAEAAAAAAAEAAAD//wIAAAAAAAEAAAAAAAIAAAAAAAEAAAD//wMAAAAAAAEAAAAAAAMAAAABAAEAAAA=")
+tile_map_data = PackedByteArray("AAD//wEAAAAAAAAAAAAAAAEAAAAAAAAAAAABAAAAAAAAAAAAAAACAAAAAAAAAAAAAAADAAIAAAAHAAAAAAAEAAIAAAAHAAAAAAAFAAIAAAAHAAAAAAAGAAIAAAAHAAAAAAAHAAIAAAAHAAAAAAALAAIAAAAHAAAAAAANAAIAAAAHAAAAAAAOAAIAAAAHAAAAAAAIAAIAAAAJAAAAAAAJAAIAAAAKAAAAAAAKAAIAAAALAAAAAAAQAAIAAAAGAAAAAAARAAIAAAAGAAAAAAABAAEAAAAAAAEAAAABAAIAAAAAAAEAAAACAAIAAAAAAAEAAAACAAEAAAAAAAEAAAD//wIAAAAAAAEAAAAAAAIAAAAAAAEAAAD//wMAAAAAAAEAAAAAAAMAAAABAAEAAAAMAAIAAAAGAAIAAAAMAAEAAAAHAAAAAAA=")
 tile_set = SubResource("TileSet_g4d48")
+
+[node name="Enemy" parent="." instance=ExtResource("2_lcjpk")]
+position = Vector2(159, 20)
