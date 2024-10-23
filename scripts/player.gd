@@ -16,16 +16,23 @@ func _physics_process(delta: float) -> void:
 		velocity.y = JUMP_VELOCITY
 
 	var direction := Input.get_axis("move_left", "move_right")
+	
+	if direction > 0:
+		animated_sprite.flip_h = false
+	elif direction < 0:
+		animated_sprite.flip_h = true
+
+	if is_on_floor():
+		if direction == 0:
+			animated_sprite.animation = "idle"
+		else:
+			animated_sprite.animation = "run"
+	else:
+		animated_sprite.animation = "jump"
+
 	if direction:
 		velocity.x = direction * SPEED
-		animated_sprite.animation = "run"
-		if direction == -1 and not animated_sprite.flip_h:
-			animated_sprite.flip_h = true
-		elif direction == 1 and animated_sprite.flip_h:
-			animated_sprite.flip_h = false
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
-	if velocity.x == 0:
-		animated_sprite.animation = "idle"
 
 	move_and_slide()
