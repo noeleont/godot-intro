@@ -1,6 +1,7 @@
-[gd_scene load_steps=16 format=4 uid="uid://cj6rur5220xdv"]
+[gd_scene load_steps=17 format=4 uid="uid://cj6rur5220xdv"]
 
 [ext_resource type="PackedScene" uid="uid://qfheh7b0v0pm" path="res://scenes/player.tscn" id="1_c37h0"]
+[ext_resource type="Script" path="res://scenes/game_manager.gd" id="1_fenon"]
 [ext_resource type="PackedScene" uid="uid://ydymvqy14cjx" path="res://scenes/platform.tscn" id="2_25eqm"]
 [ext_resource type="PackedScene" uid="uid://c2ijfch1ek5v2" path="res://scenes/enemy.tscn" id="2_lcjpk"]
 [ext_resource type="Texture2D" uid="uid://b0lx3oqin7gqo" path="res://assets/sprites/world_tileset.png" id="2_sen1q"]
@@ -253,6 +254,10 @@ sources/0 = SubResource("TileSetAtlasSource_yy5l2")
 
 [node name="Game" type="Node2D"]
 
+[node name="GameManager" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("1_fenon")
+
 [node name="player" parent="." instance=ExtResource("1_c37h0")]
 
 [node name="Camera2D" type="Camera2D" parent="player"]
@@ -301,7 +306,9 @@ tile_set = SubResource("TileSet_g4d48")
 [node name="Enemy" parent="." instance=ExtResource("2_lcjpk")]
 position = Vector2(159, 20)
 
-[node name="Label" type="Label" parent="."]
+[node name="Labels" type="Node" parent="."]
+
+[node name="Info" type="Label" parent="Labels"]
 offset_left = 54.0
 offset_top = -41.0
 offset_right = 146.0
@@ -310,3 +317,13 @@ theme_override_colors/font_color = Color(0.991914, 0.73949, 0.594368, 1)
 theme_override_fonts/font = ExtResource("7_etm1d")
 theme_override_font_sizes/font_size = 8
 text = "Space to jump"
+
+[node name="ScoreLabel" type="Label" parent="Labels"]
+unique_name_in_owner = true
+offset_left = 239.0
+offset_top = -62.0
+offset_right = 331.0
+offset_bottom = -53.0
+theme_override_colors/font_color = Color(0.991914, 0.73949, 0.594368, 1)
+theme_override_fonts/font = ExtResource("7_etm1d")
+theme_override_font_sizes/font_size = 8

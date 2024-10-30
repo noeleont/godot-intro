@@ -5,6 +5,7 @@ const SPEED = 200.0
 const JUMP_VELOCITY = -200.0
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var game_manager: Node = %GameManager
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -14,6 +15,9 @@ func _physics_process(delta: float) -> void:
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
+		
+	if Input.is_action_just_pressed("build") and not is_on_floor():
+		game_manager.add_platform()
 
 	var direction := Input.get_axis("move_left", "move_right")
 	
